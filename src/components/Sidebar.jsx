@@ -4,7 +4,6 @@ import { logo, sun } from '../assets';
 import { navlinks } from '../constants';
 
 const Icon = ({ styles, name, imgUrl, isActive, disabled, onClickCallback }) => {
-    console.log('ksfjskf', imgUrl);
     return (
         <div className={`w-[48px] h-[48px] rounded-md flex justify-center items-center ${!disabled && 'cursor-pointer'} ${styles} ${isActive && isActive === name && 'bg-[#2c2f32]'}`}
             onClick={onClickCallback}>
