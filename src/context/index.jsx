@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { useAddress, useContract, useContractWrite, useMetamask } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
 
 const StateContext = createContext()
 
@@ -27,7 +28,24 @@ export const StateContextProvider = ({ children }) => {
         }
     }
 
-    return (<StateContext.Provider value={{ address, connect, contract, createCampaign: publishCampaign }}>
+    const getCampaigns = async () => {
+        const campaigns = await contract.call('getCampaigns');
+
+        const parsedCampaigns = campaigns.map((campaign, idx) => ({
+            owner: campaign.owner,
+            title: campaign.title,
+            description: campaign.description,
+            target: ethers.utils.formatEther(campaign.target.toString()),
+            deadline: campaign.deadline.toNumber(),
+            amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
+            image: campaign.image,
+            pId: idx
+        }));
+
+        return parsedCampaigns;
+    }
+
+    return (<StateContext.Provider value={{ address, connect, contract, createCampaign: publishCampaign, getCampaigns }}>
         {children}
     </StateContext.Provider>)
 }
