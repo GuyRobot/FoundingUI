@@ -5,6 +5,7 @@ import { checkIfImage } from "./../utils";
 import { money } from '../assets';
 import { CustomButton, Loader } from '../components';
 import { useStateContext } from '../context';
+import { ethers } from 'ethers';
 
 function CreateCampaign() {
   const navigate = useNavigate();

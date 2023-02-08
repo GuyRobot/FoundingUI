@@ -1,13 +1,14 @@
-import { createContext } from "react";
+import React, { createContext, useContext } from "react";
 import { useAddress, useContract, useContractWrite, useMetamask } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
+import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 
 const StateContext = createContext()
 
 export const StateContextProvider = ({ children }) => {
     const { contract } = useContract('0x4aC43eC5E6C55dA9e377abA10ae169970465deC0')
 
-    const { mutuaAsync: createCampaign } = useContractWrite(contract, "create");
+    const { mutateAsync: createCampaign } = useContractWrite(contract, "create");
 
     const address = useAddress();
     const connect = useMetamask();
@@ -20,11 +21,12 @@ export const StateContextProvider = ({ children }) => {
                 form.description,
                 form.target,
                 new Date(form.deadline).getTime(),
+                0,
                 form.image
             ])
             console.log("Succeed create contract", data);
         } catch (error) {
-            console.log("Failed to create contract");
+            console.log("Failed to create contract", error);
         }
     }
 
@@ -75,4 +77,4 @@ export const StateContextProvider = ({ children }) => {
     </StateContext.Provider>)
 }
 
-export const useStateContext = () => useContract(StateContext)
+export const useStateContext = () => useContext(StateContext)
