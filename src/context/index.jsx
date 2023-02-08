@@ -5,9 +5,9 @@ import { ethers } from "ethers";
 const StateContext = createContext()
 
 export const StateContextProvider = ({ children }) => {
-    const { contract } = useContract('0xd29347913jksnf83nrn3223n2l3k232')
+    const { contract } = useContract('0x4aC43eC5E6C55dA9e377abA10ae169970465deC0')
 
-    const { mutuaAsync: createCampaign } = useContractWrite(contract, "createCampaign");
+    const { mutuaAsync: createCampaign } = useContractWrite(contract, "create");
 
     const address = useAddress();
     const connect = useMetamask();
