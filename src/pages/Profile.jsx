@@ -16,7 +16,7 @@ function Profile() {
   }
 
   useEffect(() => {
-    fetchCampaigns()
+    if(contract) fetchCampaigns()
   }, [address, contract])
 
   return (

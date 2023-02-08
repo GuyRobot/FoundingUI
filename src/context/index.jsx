@@ -49,7 +49,7 @@ export const StateContextProvider = ({ children }) => {
 
     const getUserCampaigns = async () => {
         const campaigns = await getCampaigns()
-        return campaigns.filter((campaign) => campaign.address === address)
+        return campaigns.filter((campaign) => campaign.owner === address)
     }
 
     const donate = async (pId, amount) => {
