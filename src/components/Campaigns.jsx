@@ -6,7 +6,7 @@ import Loader from './Loader';
 function Campaigns({ title, isLoading, campaigns }) {
     const navigate = useNavigate();
     const handleNavigate = (campaign) => {
-        navigate(`campaign-details/${campaign.title}`, { state: campaign })
+        navigate(`campaigns/${campaign.title}`, { state: campaign })
     }
     return (
         <div>
@@ -22,7 +22,7 @@ function Campaigns({ title, isLoading, campaigns }) {
                 {!isLoading && campaigns.length > 0 && (campaigns.map((campaign) => <FundCard
                     key={campaign.pId}
                     {...campaign}
-                    handleClick={() => handleNavigate(campaign)}
+                    onClick={() => handleNavigate(campaign)}
                 />))}
 
             </div>

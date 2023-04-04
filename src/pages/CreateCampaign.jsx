@@ -28,15 +28,15 @@ function CreateCampaign() {
     e.preventDefault();
 
     checkIfImage(form.image, async (exists) => {
-      if (exists) {
-        setIsLoading(true)
-        await createCampaign({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
-        setIsLoading(false);
-        navigate('/');
-      } else {
-        alert('Provide valid image URL')
-        setForm({ ...form, image: '' });
+      let imgUrl = form.image;
+      if (!exists) {
+        imgUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6jMXr3NQZeQVr3e07sxF30fEGVoFaVET_bA&usqp=CAU';
       }
+      const newForm = { ...form, image: imgUrl }
+      setIsLoading(true)
+      await createCampaign({ ...newForm, target: ethers.utils.parseUnits(form.target, 18) })
+      setIsLoading(false);
+      navigate('/');
     })
   }
 
@@ -96,7 +96,8 @@ function CreateCampaign() {
         </div>
 
         <FormField
-          labelName="Campaign image *"
+          required={false}
+          labelName="Campaign image"
           placeholder="Place image URL of your campaign"
           inputType="url"
           value={form.image}
